@@ -7,27 +7,24 @@ import Input from "./components/Input";
 // import { useData } from "react-isomophic-data";
 
 const Home = () => {
-	const [chat, setChat] = useState([]);
+  const [chat, setChat] = useState([]);
 
-	useEffect(() => {
-		setChat(chatData);
-	}, []);
+  useEffect(() => {
+    setChat(chatData);
+  }, []);
 
-	return (
-		<div className={cssContainer}>
-			<div className={cssTitle}>
-				Chatting Session
-			</div>
-			{chat.length > 0 && chat.map((value, key) => {
-				return (
-					<ChatChip key={key} {...value} />
-				);
-			})}
-			<div className={cssFooter}>
-				<Input />
-			</div>
-		</div>
-	);
+  return (
+    <div className={cssContainer}>
+      <div className={cssTitle}>Chatting Session</div>
+      {chat.length > 0 &&
+        chat.map((value, key) => {
+          return <ChatChip key={key} {...value} />;
+        })}
+      <div className={cssFooter}>
+        <Input />
+      </div>
+    </div>
+  );
 };
 
 export default Home;
