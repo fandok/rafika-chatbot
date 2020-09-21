@@ -1,20 +1,25 @@
 import React from "react";
 import { string, bool } from "prop-types";
-import { Avatar, Card, Row, Col, Space } from "antd";
+import { Avatar, Card } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import { cssAvatar, cssCard, cssChatChip } from "./style";
 
 
 const ChatChip = ({ isSender, text }) => {
 	console.log(text);
 	return (
-		<Space direction="horizontal">
+		<div className={cssChatChip({ isSender })}>
 			{!isSender && (
-				<Avatar size={64} icon={<UserOutlined />} />
+				<div className={cssAvatar}>
+					<Avatar size={32} icon={<UserOutlined />} />
+				</div>
 			)}
-			<Card style={{width: 300}}>
-				{text}
+			<Card>
+				<div className={cssCard}>
+					{text}
+				</div>
 			</Card>
-		</Space>
+		</div>
 	);
 };
 
