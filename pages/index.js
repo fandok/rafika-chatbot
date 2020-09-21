@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import ChatChip from "./components/ChatChip";
-import { chatData } from "./__mocks__/chat";
-import { cssContainer, cssFooter, cssTitle } from "./style";
-import Input from "./components/Input";
 
-// import { useData } from "react-isomophic-data";
+import ChatChip from "../src/components/ChatChip";
+import Input from "../src/components/Input";
+import { chatData } from "../src/__mocks__/chat";
+
+import { cssContainer, cssFooter, cssTitle } from "../styles";
 
 const Home = () => {
   const [chat, setChat] = useState([]);
