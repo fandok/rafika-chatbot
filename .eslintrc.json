@@ -6,6 +6,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
     "prettier",
     "prettier/react"
   ],
@@ -17,5 +19,8 @@
     "sourceType": "module"
   },
   "plugins": ["react"],
-  "rules": {}
+  "rules": {
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
+  }
 }
