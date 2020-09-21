@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ChatChip from "./components/ChatChip";
-import { Layout } from "antd";
 import { chatData } from "./__mocks__/chat";
-import { cssContainer } from "./style";
-
-
-const { Header, Footer, Content } = Layout;
+import { cssContainer, cssFooter, cssTitle } from "./style";
+import Input from "./components/Input";
 
 // import { useData } from "react-isomophic-data";
 
@@ -18,19 +15,17 @@ const Home = () => {
 
 	return (
 		<div className={cssContainer}>
-			<Header>
-				WKWKWKWK
-			</Header>
-			<Content>
-				{chat.length > 0 && chat.map((value, key) => {
-					return (
-						<ChatChip key={key} {...value} />
-					);
-				})}
-			</Content>
-			<Footer>
-				WKWKW
-			</Footer>
+			<div className={cssTitle}>
+				Chatting Session
+			</div>
+			{chat.length > 0 && chat.map((value, key) => {
+				return (
+					<ChatChip key={key} {...value} />
+				);
+			})}
+			<div className={cssFooter}>
+				<Input />
+			</div>
 		</div>
 	);
 };
