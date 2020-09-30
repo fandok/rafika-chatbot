@@ -12,6 +12,7 @@ export const cssInputChipContent = css({
   color: "#000000",
   padding: 13,
   fontSize: 13,
+  border: 0,
 });
 
 export const cssInputContainer = css({

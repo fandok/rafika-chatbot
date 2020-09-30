@@ -4,7 +4,7 @@ import { cssInputChip, cssInputChipContent } from "./style";
 
 const InputChip = ({ text }) => (
   <div className={cssInputChip}>
-    <div className={cssInputChipContent}>{text}</div>
+    <button className={cssInputChipContent}>{text}</button>
   </div>
 );
 

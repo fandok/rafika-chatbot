@@ -9,8 +9,15 @@ import { cssContainer, cssFooter, cssTitle } from "../styles";
 const Home = () => {
   const [chat, setChat] = useState([]);
 
+  const addChat = (data, duration) => {
+    setTimeout(() => {
+      setChat(prev => [...prev, data]);
+    }, duration || 5000);
+  }
+
   useEffect(() => {
-    setChat(chatData);
+    addChat(chatData[0]);
+    addChat(chatData[1], 10000);
   }, []);
 
   return (
@@ -21,7 +28,7 @@ const Home = () => {
           return <ChatChip key={key} {...value} />;
         })}
       <div className={cssFooter}>
-        <Input />
+        <Input addChat={addChat} />
       </div>
     </div>
   );
