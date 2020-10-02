@@ -1,10 +1,10 @@
-import React from "react";
-import { string } from "prop-types";
-import { cssInputChip, cssInputChipContent } from "./style";
+import React from 'react';
+import { string } from 'prop-types';
+import { cssInputChip, cssInputChipContent } from './style';
 
 const InputChip = ({ text }) => (
   <div className={cssInputChip}>
-    <button className={cssInputChipContent}>{text}</button>
+    <div className={cssInputChipContent}>{text}</div>
   </div>
 );
 

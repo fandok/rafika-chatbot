@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import ChatChip from "../src/components/ChatChip";
-import Input from "../src/components/Input";
-import { chatData } from "../src/__mocks__/chat";
+import ChatChip from '../src/components/ChatChip';
+import Input from '../src/components/Input';
+import { chatData } from '../src/__mocks__/chat';
 
-import { cssContainer, cssFooter, cssTitle } from "../styles";
+import { cssContainer, cssFooter, cssTitle } from '../styles';
 
 const Home = () => {
   const [chat, setChat] = useState([]);
@@ -13,7 +13,7 @@ const Home = () => {
     setTimeout(() => {
       setChat(prev => [...prev, data]);
     }, duration || 5000);
-  }
+  };
 
   useEffect(() => {
     addChat(chatData[0]);
