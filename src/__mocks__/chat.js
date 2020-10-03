@@ -17,3 +17,14 @@ export const chatData = [
     text: 'I spy an object that starts with letter S',
   },
 ];
+
+export const answerData = [
+  {
+    isSender: false,
+    text: 'No, try again!',
+  },
+  {
+    isSender: false,
+    text: 'Correct!',
+  },
+];

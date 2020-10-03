@@ -2,26 +2,36 @@ import React, { useEffect, useState } from 'react';
 
 import ChatChip from '../src/components/ChatChip';
 import Input from '../src/components/Input';
-import { chatData } from '../src/__mocks__/chat';
+import { answerData, chatData } from '../src/__mocks__/chat';
 
 import { cssContainer, cssFooter, cssTitle } from '../styles';
 
 const Home = () => {
   const [chat, setChat] = useState([]);
+  const [color, setColor] = useState('');
 
-  const addChat = (data, duration) => {
+  const addChat = (data, duration, respond) => {
     setTimeout(() => {
       setChat(prev => [...prev, data]);
-    }, duration || 5000);
+    }, duration || 3000);
+
+    if (respond?.needRespond) {
+      setTimeout(() => {
+        setChat(prev => [...prev, answerData[respond.answer ? 1 : 0]]);
+        setColor(respond.color);
+      }, 6000);
+    }
   };
 
   useEffect(() => {
     addChat(chatData[0]);
     addChat(chatData[1], 10000);
+    addChat(chatData[2], 13000);
+    addChat(chatData[3], 16000);
   }, []);
 
   return (
-    <div className={cssContainer}>
+    <div className={cssContainer({ color })}>
       <div className={cssTitle}>Chatting Session</div>
       {chat.length > 0 &&
         chat.map((value, key) => {

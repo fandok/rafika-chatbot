@@ -5,17 +5,30 @@ import { cssInputContainer } from './style';
 import { func } from 'prop-types';
 
 const Input = ({ addChat }) => {
-  const add = ({ text }) => {
-    addChat({
-      isSender: true,
-      text,
-    });
+  const add = ({ text, answer, color }) => {
+    addChat(
+      {
+        isSender: true,
+        text,
+      },
+      0,
+      {
+        needRespond: true,
+        answer,
+        color,
+      },
+    );
   };
 
   return (
     <div className={cssInputContainer}>
       {inputData.map((value, key) => (
-        <div key={key} onClick={() => add({ text: value.text })}>
+        <div
+          key={key}
+          onClick={() =>
+            add({ text: value.text, answer: value.answer, color: value.color })
+          }
+        >
           <InputChip text={value.text} key={key} />
         </div>
       ))}
