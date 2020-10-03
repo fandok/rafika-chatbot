@@ -1,8 +1,8 @@
-import React from "react";
-import { string, bool } from "prop-types";
-import { Avatar, Card } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { cssAvatar, cssCard, cssChatChip } from "./style";
+import React from 'react';
+import { string, bool } from 'prop-types';
+import { Avatar, Card } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
+import { cssAvatar, cssCard, cssChatChip } from './style';
 
 const ChatChip = ({ isSender, text }) => {
   console.log(text);
