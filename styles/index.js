@@ -1,10 +1,9 @@
 import { css } from 'emotion';
+import { fullGrey } from './color';
 
 export const cssContainer = ({ color }) =>
   css({
-    background: color
-      ? color
-      : 'linear-gradient(180deg, rgba(177,223,165,1) 0%, rgba(212,208,208,1) 0%, rgba(171,223,165,1) 100%)',
+    background: color ? color : fullGrey,
     transition: '2s',
     minHeight: '100vh',
     margin: '0px auto',

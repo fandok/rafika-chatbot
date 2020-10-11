@@ -1,44 +1,64 @@
 import React, { useEffect, useState } from 'react';
+import { Form, Input, Button } from 'antd';
 
 import ChatChip from '../src/components/ChatChip';
-import Input from '../src/components/Input';
-import { answerData, chatData } from '../src/__mocks__/chat';
+// import SelectInput from '../src/components/Input';
+import { sendMessage } from '../src/fetcher';
+// import { answerData, chatData } from '../src/__mocks__/chat';
 
 import { cssContainer, cssFooter, cssTitle } from '../styles';
 
 const Home = () => {
   const [chat, setChat] = useState([]);
-  const [color, setColor] = useState('');
 
-  const addChat = (data, duration, respond) => {
-    setTimeout(() => {
-      setChat(prev => [...prev, data]);
-    }, duration || 3000);
+  const [form] = Form.useForm();
 
-    if (respond?.needRespond) {
-      setTimeout(() => {
-        setChat(prev => [...prev, answerData[respond.answer ? 1 : 0]]);
-        setColor(respond.color);
-      }, 6000);
-    }
+  const addChat = data => {
+    setChat(prev => [...prev, data]);
+  };
+
+  const sendChat = () => {
+    const chatMessage = form.getFieldValue('chat-input');
+    addChat({ isSender: true, text: chatMessage });
+    sendMessage({ message: chatMessage }).then(response => {
+      const chat = response.message;
+      chat.map(value => {
+        addChat({ isSender: false, text: value }, 0);
+      });
+    });
+
+    form.resetFields();
   };
 
   useEffect(() => {
-    addChat(chatData[0]);
-    addChat(chatData[1], 10000);
-    addChat(chatData[2], 13000);
-    addChat(chatData[3], 16000);
+    sendMessage({ message: 'day 1' }).then(response => {
+      const chat = response.message;
+      chat.map(value => {
+        addChat({ isSender: false, text: value }, 0);
+      });
+    });
   }, []);
 
   return (
-    <div className={cssContainer({ color })}>
+    <div className={cssContainer({ color: '' })}>
       <div className={cssTitle}>Chatting Session</div>
       {chat.length > 0 &&
         chat.map((value, key) => {
           return <ChatChip key={key} {...value} />;
         })}
       <div className={cssFooter}>
-        <Input addChat={addChat} />
+        <Form form={form}>
+          <Form.Item name="chat-input">
+            <Input placeholder="Type your text here" />
+          </Form.Item>
+          <Form.Item>
+            <Button htmlType="button" onClick={sendChat}>
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+
+        {/* <SelectInput addChat={addChat} /> */}
       </div>
     </div>
   );
