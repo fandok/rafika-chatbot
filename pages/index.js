@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 import ChatChip from '../src/components/ChatChip';
-import SelectInput from '../src/components/Input';
+// import SelectInput from '../src/components/Input';
 import { sendMessage } from '../src/fetcher';
-import { answerData, chatData } from '../src/__mocks__/chat';
+// import { answerData, chatData } from '../src/__mocks__/chat';
 
 import { cssContainer, cssFooter, cssTitle } from '../styles';
 
 const Home = () => {
   const [chat, setChat] = useState([]);
-  const [color, setColor] = useState('');
 
   const [form] = Form.useForm();
 
-  const sendChat = e => {
-    console.log(e.target.value);
-    form.resetFields();
+  const addChat = data => {
+    setChat(prev => [...prev, data]);
   };
 
-  const addChat = (data, duration, respond) => {
-    setTimeout(() => {
-      setChat(prev => [...prev, data]);
-    }, duration || 3000);
+  const sendChat = () => {
+    const chatMessage = form.getFieldValue('chat-input');
+    addChat({ isSender: true, text: chatMessage });
+    sendMessage({ message: chatMessage }).then(response => {
+      const chat = response.message;
+      chat.map(value => {
+        addChat({ isSender: false, text: value }, 0);
+      });
+    });
 
-    if (respond?.needRespond) {
-      setTimeout(() => {
-        setChat(prev => [...prev, answerData[respond.answer ? 1 : 0]]);
-        setColor(respond.color);
-      }, 6000);
-    }
+    form.resetFields();
   };
 
   useEffect(() => {
@@ -42,16 +40,21 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={cssContainer({ color })}>
+    <div className={cssContainer({ color: '' })}>
       <div className={cssTitle}>Chatting Session</div>
       {chat.length > 0 &&
         chat.map((value, key) => {
           return <ChatChip key={key} {...value} />;
         })}
       <div className={cssFooter}>
-        <Form form={form} onFinish={sendChat}>
-          <Form.Item>
+        <Form form={form}>
+          <Form.Item name="chat-input">
             <Input placeholder="Type your text here" />
+          </Form.Item>
+          <Form.Item>
+            <Button htmlType="button" onClick={sendChat}>
+              Submit
+            </Button>
           </Form.Item>
         </Form>
 
