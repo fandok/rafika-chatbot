@@ -3,7 +3,7 @@ export const sendMessage = async ({ message }) => {
   formData.append('message', message);
 
   const response = await fetch(
-    'http://chatbotgroup1.herokuapp.com/send_message',
+    'https://chatbotgroup1.herokuapp.com/send_message',
     {
       headers: {
         accept: '*/*',
