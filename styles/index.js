@@ -1,9 +1,15 @@
 import { css } from 'emotion';
-import { fullGrey } from './color';
+
+const colorList = [
+  'linear-gradient(180deg, rgba(177, 223, 165, 0) 99.99%, #ABDFA5 100%), #D5D0D0',
+  'linear-gradient(180deg, rgba(165, 223, 179, 0) 0%, rgba(165, 223, 179, 0) 55.45%, #ABDFA5 71.82%), #D5D0D0',
+  'linear-gradient(180deg, rgba(165, 223, 179, 0) 0%, rgba(165, 223, 179, 0) 26.36%, #ABDFA5 42.5%), #D5D0D0',
+  'linear-gradient(180deg, rgba(165, 223, 179, 0) 0%, rgba(165, 223, 179, 0) 0%, #ABDFA5 0%), #D5D0D0',
+];
 
 export const cssContainer = ({ color }) =>
   css({
-    background: color ? color : fullGrey,
+    background: colorList[color],
     transition: '2s',
     minHeight: '100vh',
     margin: '0px auto',
@@ -27,4 +33,12 @@ export const cssFooter = css({
   width: '100%',
   backgroundColor: '#FFFFFF',
   boxShadow: 'inset 0px 0.5px 0px rgba(0, 0, 0, 0.3)',
+});
+
+export const cssForm = css({
+  display: 'flex',
+});
+
+export const cssChatInput = css({
+  borderStyle: 'none',
 });
