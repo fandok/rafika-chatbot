@@ -10,7 +10,6 @@ export const sendMessage = async ({ message }) => {
         'accept-language': 'en-US,en;q=0.9,id;q=0.8',
         'x-requested-with': 'XMLHttpRequest',
       },
-      referrer: 'http://chatbotgroup1.herokuapp.com/',
       referrerPolicy: 'strict-origin-when-cross-origin',
       body: formData,
       method: 'POST',
