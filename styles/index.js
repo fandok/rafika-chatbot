@@ -37,8 +37,23 @@ export const cssFooter = css({
 
 export const cssForm = css({
   display: 'flex',
+  justifyContent: 'space-between',
+  marginTop: 17,
+  width: '100%',
 });
 
 export const cssChatInput = css({
   borderStyle: 'none',
+  marginLeft: 13,
+});
+
+export const cssChatButton = css({
+  border: 'none',
+  background: 'transparent',
+  marginRight: 13,
+});
+
+export const cssChatButtonImage = css({
+  width: 34,
+  height: 34,
 });

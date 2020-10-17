@@ -6,7 +6,17 @@ import ChatChip from '../src/components/ChatChip';
 import { sendMessage } from '../src/fetcher';
 // import { answerData, chatData } from '../src/__mocks__/chat';
 
-import { cssContainer, cssFooter, cssForm, cssTitle } from '../styles';
+const { TextArea } = Input;
+
+import {
+  cssChatButton,
+  cssChatButtonImage,
+  cssChatInput,
+  cssContainer,
+  cssFooter,
+  cssForm,
+  cssTitle,
+} from '../styles';
 
 const Home = () => {
   const [chat, setChat] = useState([]);
@@ -55,11 +65,20 @@ const Home = () => {
       <div className={cssFooter}>
         <Form className={cssForm} form={form}>
           <Form.Item name="chat-input">
-            <Input placeholder="Type your text here" />
+            <TextArea
+              rows={2}
+              className={cssChatInput}
+              placeholder="Type your text here"
+            />
           </Form.Item>
           <Form.Item>
-            <Button htmlType="button" onClick={sendChat}>
-              Submit
+            <Button
+              className={cssChatButton}
+              htmlType="button"
+              aria-label="Send"
+              onClick={sendChat}
+            >
+              <img className={cssChatButtonImage} src="/send.png" alt="Send" />
             </Button>
           </Form.Item>
         </Form>
