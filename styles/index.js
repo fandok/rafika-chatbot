@@ -37,7 +37,6 @@ export const cssFooter = css({
 
 export const cssForm = css({
   display: 'flex',
-  justifyContent: 'space-between',
   marginTop: 17,
   width: '100%',
 });
@@ -45,6 +44,8 @@ export const cssForm = css({
 export const cssChatInput = css({
   borderStyle: 'none',
   marginLeft: 13,
+  width: '95%',
+  resize: 'none',
 });
 
 export const cssChatButton = css({
