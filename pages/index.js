@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Input, Button } from 'antd';
+import { string } from 'prop-types';
 
 import ChatChip from '../src/components/ChatChip';
 // import SelectInput from '../src/components/Input';
@@ -18,7 +19,7 @@ import {
   cssTitle,
 } from '../styles';
 
-const Home = () => {
+const Home = ({ message }) => {
   const [chat, setChat] = useState([]);
   const [color, setColorIndex] = useState(0);
 
@@ -47,13 +48,15 @@ const Home = () => {
   };
 
   useEffect(() => {
-    sendMessage({ message: 'day 1' }).then(response => {
-      const chat = response.message;
-      chat.map(value => {
-        addChat({ isSender: false, text: value }, 0);
+    if (message) {
+      sendMessage({ message }).then(response => {
+        const chat = response.message;
+        chat.map(value => {
+          addChat({ isSender: false, text: value }, 0);
+        });
       });
-    });
-  }, []);
+    }
+  }, [message]);
 
   return (
     <div className={cssContainer({ color })}>
@@ -64,9 +67,9 @@ const Home = () => {
         })}
       <div className={cssFooter}>
         <Form className={cssForm} form={form}>
-          <Form.Item name="chat-input">
+          <Form.Item style={{ flexGrow: 1 }} name="chat-input">
             <TextArea
-              rows={2}
+              rows={3}
               className={cssChatInput}
               placeholder="Type your text here"
             />
@@ -87,6 +90,14 @@ const Home = () => {
       </div>
     </div>
   );
+};
+
+Home.propTypes = {
+  message: string,
+};
+
+Home.defaultProps = {
+  message: '',
 };
 
 export default Home;
