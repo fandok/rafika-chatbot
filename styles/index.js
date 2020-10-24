@@ -11,9 +11,11 @@ export const cssContainer = ({ color }) =>
   css({
     background: colorList[color],
     transition: '2s',
-    minHeight: '100vh',
     margin: '0px auto',
     width: '100%',
+    display: 'flex',
+    height: '100vh',
+    flexDirection: 'column',
   });
 
 export const cssTitle = css({
@@ -26,10 +28,8 @@ export const cssTitle = css({
 });
 
 export const cssFooter = css({
-  position: 'absolute',
+  flexShrink: 0,
   height: 84,
-  left: 0,
-  bottom: 0,
   width: '100%',
   backgroundColor: '#FFFFFF',
   boxShadow: 'inset 0px 0.5px 0px rgba(0, 0, 0, 0.3)',
@@ -39,6 +39,11 @@ export const cssForm = css({
   display: 'flex',
   marginTop: 17,
   width: '100%',
+});
+
+export const cssChatContainer = css({
+  overflow: 'auto',
+  height: '100%',
 });
 
 export const cssChatInput = css({

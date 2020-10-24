@@ -18,4 +18,5 @@ export const cssInputContainer = css({
   padding: '16px 16px 24px 16px',
   display: 'flex',
   flexDirection: 'row',
+  overflow: 'auto',
 });
