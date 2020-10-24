@@ -1,35 +1,14 @@
 import React from 'react';
 import InputChip from './chip';
-import { inputData } from '../../__mocks__/input';
 import { cssInputContainer } from './style';
-import { func } from 'prop-types';
+import { func, arrayOf, string } from 'prop-types';
 
-const Input = ({ addChat }) => {
-  const add = ({ text, answer, color }) => {
-    addChat(
-      {
-        isSender: true,
-        text,
-      },
-      0,
-      {
-        needRespond: true,
-        answer,
-        color,
-      },
-    );
-  };
-
+const Input = ({ options, sendChat }) => {
   return (
     <div className={cssInputContainer}>
-      {inputData.map((value, key) => (
-        <div
-          key={key}
-          onClick={() =>
-            add({ text: value.text, answer: value.answer, color: value.color })
-          }
-        >
-          <InputChip text={value.text} key={key} />
+      {options.map((value, key) => (
+        <div key={key} onClick={() => sendChat(value)}>
+          <InputChip text={value} key={key} />
         </div>
       ))}
     </div>
@@ -37,6 +16,12 @@ const Input = ({ addChat }) => {
 };
 
 Input.propTypes = {
-  addChat: func.isRequired,
+  options: arrayOf(string),
+  sendChat: func.isRequired,
 };
+
+Input.defaultProps = {
+  options: [],
+};
+
 export default Input;
