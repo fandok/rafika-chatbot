@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Form, Input, Button } from 'antd';
 import { string } from 'prop-types';
 
@@ -24,6 +24,13 @@ const Home = ({ message }) => {
   const [chat, setChat] = useState([]);
   const [color, setColorIndex] = useState(0);
   const [options, setOptions] = useState([]);
+  const chatRef = useRef(null);
+
+  const scrollToBottom = () => {
+    chatRef.current.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(scrollToBottom, [chat]);
 
   const [form] = Form.useForm();
 
@@ -42,9 +49,20 @@ const Home = ({ message }) => {
     sendMessage({ message: chatMessage })
       .then(response => {
         const chat = response.message;
+        const gameplay = response.data.gameplay || {};
+        const sentiment = response.data.sentiment || {};
+        if (gameplay.record?.state === 'correct') {
+          setOptions([]);
+        }
+
+        if (sentiment?.sentiment_class === 'pos') {
+          setColorIndex(prev => (prev < 2 ? prev + 1 : prev));
+        } else if (sentiment?.sentiment_class === 'neg') {
+          setColorIndex(prev => (prev > 0 ? prev - 1 : prev));
+        }
+
         chat.map(value => {
           addChat({ isSender: false, text: value }, 0);
-          console.log(value);
           if (value.includes('Choose:')) {
             const choices = value.split(',').map((value, key) => {
               let temp;
@@ -58,9 +76,6 @@ const Home = ({ message }) => {
             setOptions(choices);
           }
         });
-        if (color < 4) {
-          setColorIndex(prev => prev + 1);
-        }
       })
       .catch(error => console.error(error));
 
@@ -86,6 +101,7 @@ const Home = ({ message }) => {
           chat.map((value, key) => {
             return <ChatChip key={key} {...value} />;
           })}
+        <div ref={chatRef} />
       </div>
       <div className={cssFooter}>
         <Form className={cssForm} form={form}>
