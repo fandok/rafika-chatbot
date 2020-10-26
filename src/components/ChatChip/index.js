@@ -2,7 +2,7 @@ import React from 'react';
 import { string, bool } from 'prop-types';
 import { Avatar, Card } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { cssAvatar, cssCard, cssChatChip } from './style';
+import { cssAvatar, cssChatChip } from './style';
 
 const ChatChip = ({ isSender, text }) => (
   <div className={cssChatChip({ isSender })}>
@@ -11,9 +11,7 @@ const ChatChip = ({ isSender, text }) => (
         <Avatar size={32} icon={<UserOutlined />} />
       </div>
     )}
-    <Card>
-      <div className={cssCard}>{text}</div>
-    </Card>
+    <Card>{text}</Card>
   </div>
 );
 

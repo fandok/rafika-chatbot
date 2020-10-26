@@ -19,3 +19,18 @@ export const sendMessage = async ({ message }) => {
   );
   return response.json();
 };
+
+export const postLogin = async ({ email, name }) => {
+  const body = new FormData();
+  body.append('e-mail', email);
+  body.append('name', name);
+  const response = await fetch('https://chatbotgroup1.herokuapp.com/login', {
+    body,
+    headers: {
+      Accept: '*/*',
+    },
+    method: 'POST',
+  });
+
+  return response.json();
+};

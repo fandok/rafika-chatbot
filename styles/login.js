@@ -4,7 +4,7 @@ export const cssLogin = css({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  marginTop: '50vh',
+  paddingTop: '50vh',
 });
 
 export const cssLoginInput = css({

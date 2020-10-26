@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Typography } from 'antd';
 import { string } from 'prop-types';
 
 import ChatChip from '../src/components/ChatChip';
 import SelectInput from '../src/components/Input';
 import { sendMessage } from '../src/fetcher';
-// import { answerData, chatData } from '../src/__mocks__/chat';
+import 'antd/dist/antd.css';
 
 const { TextArea } = Input;
+const { Title } = Typography;
 
 import {
   cssChatButton,
@@ -20,11 +21,31 @@ import {
   cssTitle,
 } from '../styles';
 
-const Home = ({ message }) => {
+const Home = ({ message, mode }) => {
   const [chat, setChat] = useState([]);
   const [color, setColorIndex] = useState(0);
   const [options, setOptions] = useState([]);
   const chatRef = useRef(null);
+
+  const shuffle = array => {
+    var currentIndex = array.length,
+      temporaryValue,
+      randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  };
 
   const scrollToBottom = () => {
     chatRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -55,10 +76,12 @@ const Home = ({ message }) => {
           setOptions([]);
         }
 
-        if (sentiment?.sentiment_class === 'pos') {
-          setColorIndex(prev => (prev < 2 ? prev + 1 : prev));
-        } else if (sentiment?.sentiment_class === 'neg') {
-          setColorIndex(prev => (prev > 0 ? prev - 1 : prev));
+        if (mode !== '1') {
+          if (sentiment?.sentiment_class === 'pos') {
+            setColorIndex(prev => (prev < 2 ? prev + 1 : prev));
+          } else if (sentiment?.sentiment_class === 'neg') {
+            setColorIndex(prev => (prev > 0 ? prev - 1 : prev));
+          }
         }
 
         chat.map(value => {
@@ -73,7 +96,7 @@ const Home = ({ message }) => {
               }
               return temp;
             });
-            setOptions(choices);
+            setOptions(shuffle(choices));
           }
         });
       })
@@ -95,7 +118,7 @@ const Home = ({ message }) => {
 
   return (
     <div className={cssContainer({ color })}>
-      <div className={cssTitle}>Chatting Session</div>
+      <Title className={cssTitle}>Chatting Session</Title>
       <div className={cssChatContainer}>
         {chat.length > 0 &&
           chat.map((value, key) => {
@@ -109,9 +132,12 @@ const Home = ({ message }) => {
             <SelectInput options={options} sendChat={sendChat} />
           ) : (
             <>
-              <Form.Item style={{ flexGrow: 1 }} name="chat-input">
+              <Form.Item
+                style={{ flexGrow: 1, marginBottom: 0 }}
+                name="chat-input"
+              >
                 <TextArea
-                  rows={3}
+                  rows={2}
                   className={cssChatInput}
                   placeholder="Type your text here"
                 />
@@ -140,10 +166,12 @@ const Home = ({ message }) => {
 
 Home.propTypes = {
   message: string,
+  mode: string,
 };
 
 Home.defaultProps = {
   message: '',
+  mode: '',
 };
 
 export default Home;

@@ -15,7 +15,7 @@ export const cssInputChipContent = css({
 });
 
 export const cssInputContainer = css({
-  padding: '16px 16px 24px 16px',
+  padding: '0 16px',
   display: 'flex',
   flexDirection: 'row',
   overflow: 'auto',

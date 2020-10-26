@@ -16,15 +16,13 @@ export const cssContainer = ({ color }) =>
     display: 'flex',
     height: '100vh',
     flexDirection: 'column',
+    maxWidth: 550,
   });
 
 export const cssTitle = css({
-  fontWeight: 600,
-  fontSize: 25,
   lineHeight: '22px',
   textAlign: 'center',
   paddingTop: 45,
-  paddingBottom: 45,
 });
 
 export const cssFooter = css({
