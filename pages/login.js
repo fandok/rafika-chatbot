@@ -1,21 +1,32 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { message, Form, Input, Button } from 'antd';
 import { cssLogin, cssLoginInput } from '../styles/login';
 import { useCookies } from 'react-cookie';
+import { postLogin } from '../src/fetcher.js';
+import 'antd/dist/antd.css';
 
 const Login = () => {
-  const [cookies, setCookie] = useCookies(['login']);
+  const [, setCookie] = useCookies(['login']);
   const [form] = Form.useForm();
 
   const submitLogin = () => {
     const email = form.getFieldValue('email');
     const name = form.getFieldValue('name');
-    console.log(email);
-    console.log(name);
-    setCookie('email', email, { path: '/' });
-    setCookie('name', name, { path: '/' });
 
-    form.resetFields();
+    postLogin({ email, name })
+      .then(response => {
+        const { is_success, message: msg } = response;
+        if (is_success) {
+          message.success(msg, 3);
+          setCookie('email', email, { path: '/' });
+          setCookie('name', name, { path: '/' });
+          window.location.href('/');
+        } else {
+          message.error(msg, 3);
+          form.resetFields();
+        }
+      })
+      .catch(error => console.error(error));
   };
 
   return (
@@ -30,10 +41,6 @@ const Login = () => {
         <Button onClick={submitLogin} htmlType="button" aria-label="Login">
           Login
         </Button>
-      </Form.Item>
-      <Form.Item>
-        {cookies.name && <div>{cookies.name}</div>}
-        {cookies.email && <div>{cookies.email}</div>}
       </Form.Item>
     </Form>
   );

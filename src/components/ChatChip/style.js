@@ -15,10 +15,6 @@ export const cssChatChip = ({ isSender }) =>
     },
   });
 
-export const cssCard = css({
-  padding: '14px 14px 18px 16px',
-});
-
 export const cssAvatar = css({
   margin: 16,
   borderRadius: 20,
