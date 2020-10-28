@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Form, Input, Button, Typography } from 'antd';
 import { string } from 'prop-types';
+import { useCookies } from 'react-cookie';
 
 import ChatChip from '../src/components/ChatChip';
 import SelectInput from '../src/components/Input';
@@ -25,6 +26,9 @@ const Home = ({ message, mode }) => {
   const [chat, setChat] = useState([]);
   const [color, setColorIndex] = useState(0);
   const [options, setOptions] = useState([]);
+  const [attempts, setAttempts] = useState(0);
+
+  const [cookies] = useCookies(['login']);
   const chatRef = useRef(null);
 
   const shuffle = array => {
@@ -66,17 +70,27 @@ const Home = ({ message, mode }) => {
     } else {
       chatMessage = form.getFieldValue('chat-input');
     }
+
+    if (!chatMessage) {
+      return;
+    }
+
     addChat({ isSender: true, text: chatMessage });
-    sendMessage({ message: chatMessage })
+    sendMessage({ message: chatMessage, email: cookies?.email || '' })
       .then(response => {
         const chat = response.message;
         const gameplay = response.data.gameplay || {};
         const sentiment = response.data.sentiment || {};
-        if (gameplay.record?.state === 'correct') {
+        const chatInput = response.data.chat_input || {};
+
+        if (gameplay.record?.state === 'correct' || attempts === 2) {
           setOptions([]);
+          setAttempts(0);
+        } else if (gameplay.record?.state === 'wrong') {
+          setAttempts(prev => prev + 1);
         }
 
-        if (mode !== '1') {
+        if (mode !== '1' && chatInput?.type === 'SmallTalk') {
           if (sentiment?.sentiment_class === 'pos') {
             setColorIndex(prev => (prev < 2 ? prev + 1 : prev));
           } else if (sentiment?.sentiment_class === 'neg') {
@@ -85,7 +99,6 @@ const Home = ({ message, mode }) => {
         }
 
         chat.map(value => {
-          addChat({ isSender: false, text: value }, 0);
           if (value.includes('Choose:')) {
             const choices = value.split(',').map((value, key) => {
               let temp;
@@ -97,6 +110,8 @@ const Home = ({ message, mode }) => {
               return temp;
             });
             setOptions(shuffle(choices));
+          } else {
+            addChat({ isSender: false, text: value }, 0);
           }
         });
       })
@@ -162,11 +177,6 @@ const Home = ({ message, mode }) => {
       </div>
     </div>
   );
-};
-
-Home.propTypes = {
-  message: string,
-  mode: string,
 };
 
 Home.defaultProps = {
