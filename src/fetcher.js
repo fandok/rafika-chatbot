@@ -1,6 +1,9 @@
-export const sendMessage = async ({ message }) => {
+export const sendMessage = async ({ message, email }) => {
   const formData = new FormData();
   formData.append('message', message);
+  if (email) {
+    formData.append('e-mail', email);
+  }
 
   const response = await fetch(
     'https://chatbotgroup1.herokuapp.com/send_message',
