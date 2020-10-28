@@ -26,7 +26,6 @@ const Home = ({ message, mode }) => {
   const [chat, setChat] = useState([]);
   const [color, setColorIndex] = useState(0);
   const [options, setOptions] = useState([]);
-  const [attempts, setAttempts] = useState(0);
 
   const [cookies] = useCookies(['login']);
   const chatRef = useRef(null);
@@ -83,11 +82,10 @@ const Home = ({ message, mode }) => {
         const sentiment = response.data.sentiment || {};
         const chatInput = response.data.chat_input || {};
 
-        if (gameplay.record?.state === 'correct' || attempts === 2) {
+        const state = gameplay.record?.state || '';
+
+        if (state === 'correct' || state === 'wrong') {
           setOptions([]);
-          setAttempts(0);
-        } else if (gameplay.record?.state === 'wrong') {
-          setAttempts(prev => prev + 1);
         }
 
         if (mode !== '1' && chatInput?.type === 'SmallTalk') {
@@ -177,6 +175,11 @@ const Home = ({ message, mode }) => {
       </div>
     </div>
   );
+};
+
+Home.propTypes = {
+  message: string,
+  mode: string,
 };
 
 Home.defaultProps = {
