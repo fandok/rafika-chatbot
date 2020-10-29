@@ -3,6 +3,7 @@ import { string, bool } from 'prop-types';
 import { Avatar, Card } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { cssAvatar, cssChatChip } from './style';
+import Linkify from 'react-linkify';
 
 const ChatChip = ({ isSender, text }) => (
   <div className={cssChatChip({ isSender })}>
@@ -11,7 +12,9 @@ const ChatChip = ({ isSender, text }) => (
         <Avatar size={32} icon={<UserOutlined />} />
       </div>
     )}
-    <Card>{text}</Card>
+    <Card>
+      <Linkify>{text}</Linkify>
+    </Card>
   </div>
 );
 
