@@ -193,6 +193,8 @@ const Home = ({ message }) => {
                   rows={2}
                   className={cssChatInput}
                   placeholder="Type your text here"
+                  showCount
+                  maxLength={256}
                 />
               </Form.Item>
               <Form.Item>
