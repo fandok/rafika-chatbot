@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Form, Input, Button, Typography } from 'antd';
+import { Form, Input, Button, Typography, message as messageModal } from 'antd';
 import { string } from 'prop-types';
 import { useCookies } from 'react-cookie';
+import { useRouter } from 'next/router';
 
 import ChatChip from '../src/components/ChatChip';
 import SelectInput from '../src/components/Input';
@@ -28,7 +29,17 @@ const Home = ({ message, mode }) => {
   const [options, setOptions] = useState([]);
 
   const [cookies] = useCookies(['login']);
+  const router = useRouter();
   const chatRef = useRef(null);
+
+  const checkLogin = () => {
+    if (!cookies.name && !cookies.email) {
+      messageModal.info('You are not logged in. Redirect to login page....');
+      router.push('login');
+    }
+  };
+
+  useEffect(checkLogin, [cookies]);
 
   const shuffle = array => {
     var currentIndex = array.length,
@@ -63,6 +74,8 @@ const Home = ({ message, mode }) => {
   };
 
   const sendChat = message => {
+    checkLogin();
+
     let chatMessage;
     if (message) {
       chatMessage = message;
@@ -101,7 +114,7 @@ const Home = ({ message, mode }) => {
             const choices = value.split(',').map((value, key) => {
               let temp;
               if (key === 0) {
-                temp = value.split(' ')[1];
+                temp = value.split(':')[1].trim();
               } else {
                 temp = value.trim();
               }

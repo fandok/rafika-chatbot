@@ -17,7 +17,7 @@ const Login = () => {
   const submitLogin = e => {
     e.preventDefault();
 
-    const email = form.getFieldValue('email');
+    const email = String(form.getFieldValue('email')).toLowerCase();
     const name = form.getFieldValue('name');
 
     postLogin({ email, name })
@@ -47,7 +47,7 @@ const Login = () => {
         <Input placeholder="Email" />
       </Form.Item>
       <Form.Item className={cssLoginInput} name="name">
-        <Input placeholder="Full Name" />
+        <Input placeholder="Name" />
       </Form.Item>
       <Form.Item>
         <Button onClick={submitLogin} htmlType="button" aria-label="Login">
