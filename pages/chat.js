@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import ChatChip from '../src/components/ChatChip';
 import SelectInput from '../src/components/Input';
-import { sendMessage } from '../src/fetcher';
+import { sendMessage, getColorState, setColorState } from '../src/fetcher';
 import 'antd/dist/antd.css';
 
 const { TextArea } = Input;
@@ -36,10 +36,18 @@ const Home = ({ message }) => {
     if (!cookies.name && !cookies.email) {
       messageModal.info('You are not logged in. Redirect to login page....');
       router.push('login');
+      return;
     }
   };
 
-  useEffect(checkLogin, [cookies]);
+  useEffect(() => {
+    checkLogin();
+    getColorState({ email: cookies.email })
+      .then(response => {
+        setColorIndex(Number(response.color_state));
+      })
+      .catch(error => console.error(error));
+  }, [cookies]);
 
   const shuffle = array => {
     var currentIndex = array.length,
@@ -107,10 +115,24 @@ const Home = ({ message }) => {
           chatInput.UID[1]?.group !== 'E' ||
           chatInput?.type === 'SmallTalk'
         ) {
+          let colorIndex = -1;
+
           if (sentiment?.sentiment_class === 'pos') {
-            setColorIndex(prev => (prev < 2 ? prev + 1 : prev));
+            colorIndex = color < 3 ? color + 1 : color;
+            setColorIndex(colorIndex);
           } else if (sentiment?.sentiment_class === 'neg') {
-            setColorIndex(prev => (prev > 0 ? prev - 1 : prev));
+            colorIndex = color > 0 ? color - 1 : color;
+            setColorIndex(colorIndex);
+          }
+
+          if (colorIndex !== -1) {
+            setColorState({ email: cookies.email, color_state: colorIndex })
+              .then(response => {
+                if (response.is_success) {
+                  messageModal.success('Chat updated');
+                }
+              })
+              .catch(error => console.error(error));
           }
         }
 
