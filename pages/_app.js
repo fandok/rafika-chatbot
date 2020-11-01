@@ -11,11 +11,7 @@ function MyApp({ Component, pageProps }) {
       <style jsx global>
         {globalStyles}
       </style>
-      <Component
-        {...pageProps}
-        message={router.query?.message}
-        mode={router.query?.mode}
-      />
+      <Component {...pageProps} message={router.query?.message} />
     </CookiesProvider>
   );
 }

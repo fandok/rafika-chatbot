@@ -23,7 +23,7 @@ import {
   cssTitle,
 } from '../styles';
 
-const Home = ({ message, mode }) => {
+const Home = ({ message }) => {
   const [chat, setChat] = useState([]);
   const [color, setColorIndex] = useState(0);
   const [options, setOptions] = useState([]);
@@ -101,7 +101,12 @@ const Home = ({ message, mode }) => {
           setOptions([]);
         }
 
-        if (mode !== '1' && chatInput?.type === 'SmallTalk') {
+        if (
+          chatInput.UID[1]?.group !== 'C' ||
+          chatInput.UID[1]?.group !== 'D' ||
+          chatInput.UID[1]?.group !== 'E' ||
+          chatInput?.type === 'SmallTalk'
+        ) {
           if (sentiment?.sentiment_class === 'pos') {
             setColorIndex(prev => (prev < 2 ? prev + 1 : prev));
           } else if (sentiment?.sentiment_class === 'neg') {
@@ -192,12 +197,10 @@ const Home = ({ message, mode }) => {
 
 Home.propTypes = {
   message: string,
-  mode: string,
 };
 
 Home.defaultProps = {
   message: '',
-  mode: '',
 };
 
 export default Home;
