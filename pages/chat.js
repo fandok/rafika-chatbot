@@ -129,7 +129,7 @@ const Home = ({ message }) => {
             setColorState({ email: cookies.email, color_state: colorIndex })
               .then(response => {
                 if (response.is_success) {
-                  messageModal.success('Chat updated');
+                  messageModal.success('Background updated');
                 }
               })
               .catch(error => console.error(error));
