@@ -145,13 +145,10 @@ const Home = ({ message }) => {
           }
 
           if (colorIndex !== -1 && colorIndex !== prevColor) {
-            setColorState({ email: cookies.email, color_state: colorIndex })
-              .then(response => {
-                if (response.is_success) {
-                  messageModal.success('Background updated');
-                }
-              })
-              .catch(error => console.error(error));
+            setColorState({
+              email: cookies.email,
+              color_state: colorIndex,
+            }).catch(error => console.error(error));
           }
         }
 
