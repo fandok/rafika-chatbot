@@ -128,7 +128,7 @@ const Home = ({ message }) => {
                 case 'DAY4':
                 case 'DAY5':
                 case 'DAY6':
-                  colorIndex = color < 2 ? color + 2 : color;
+                  colorIndex = color < 2 ? color + 1 : color;
                   break;
                 default:
                   colorIndex = color + 1;
