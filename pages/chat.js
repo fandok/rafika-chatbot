@@ -118,12 +118,30 @@ const Home = ({ message }) => {
           let colorIndex = -1;
 
           if (sentiment?.sentiment_class === 'pos') {
-            colorIndex = color < 3 ? color + 1 : color;
-            setColorIndex(colorIndex);
+            if (color < 3) {
+              switch (chatInput.day) {
+                case 'DAY1':
+                case 'DAY2':
+                case 'DAY3':
+                  colorIndex = color < 1 ? color + 1 : color;
+                  break;
+                case 'DAY4':
+                case 'DAY5':
+                case 'DAY6':
+                  colorIndex = color < 2 ? color + 2 : color;
+                  break;
+                default:
+                  colorIndex = color + 1;
+                  break;
+              }
+            } else {
+              colorIndex = color;
+            }
           } else if (sentiment?.sentiment_class === 'neg') {
             colorIndex = color > 0 ? color - 1 : color;
-            setColorIndex(colorIndex);
           }
+
+          setColorIndex(colorIndex);
 
           if (colorIndex !== -1) {
             setColorState({ email: cookies.email, color_state: colorIndex })
