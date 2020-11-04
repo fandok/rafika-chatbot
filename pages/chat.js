@@ -137,11 +137,11 @@ const Home = ({ message }) => {
             } else {
               colorIndex = color;
             }
+            setColorIndex(colorIndex);
           } else if (sentiment?.sentiment_class === 'neg') {
             colorIndex = color > 0 ? color - 1 : color;
+            setColorIndex(colorIndex);
           }
-
-          setColorIndex(colorIndex);
 
           if (colorIndex !== -1) {
             setColorState({ email: cookies.email, color_state: colorIndex })
