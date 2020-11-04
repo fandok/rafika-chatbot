@@ -116,6 +116,7 @@ const Home = ({ message }) => {
           chatInput?.type === 'SmallTalk'
         ) {
           let colorIndex = -1;
+          const prevColor = color;
 
           if (sentiment?.sentiment_class === 'pos') {
             if (color < 3) {
@@ -143,7 +144,7 @@ const Home = ({ message }) => {
             setColorIndex(colorIndex);
           }
 
-          if (colorIndex !== -1) {
+          if (colorIndex !== -1 && colorIndex !== prevColor) {
             setColorState({ email: cookies.email, color_state: colorIndex })
               .then(response => {
                 if (response.is_success) {
