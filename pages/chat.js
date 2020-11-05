@@ -116,23 +116,39 @@ const Home = ({ message }) => {
           chatInput?.type === 'SmallTalk'
         ) {
           let colorIndex = -1;
+          const prevColor = color;
 
           if (sentiment?.sentiment_class === 'pos') {
-            colorIndex = color < 3 ? color + 1 : color;
+            if (color < 3) {
+              switch (chatInput.day) {
+                case 'DAY1':
+                case 'DAY2':
+                case 'DAY3':
+                  colorIndex = color < 1 ? color + 1 : color;
+                  break;
+                case 'DAY4':
+                case 'DAY5':
+                case 'DAY6':
+                  colorIndex = color < 2 ? color + 1 : color;
+                  break;
+                default:
+                  colorIndex = color + 1;
+                  break;
+              }
+            } else {
+              colorIndex = color;
+            }
             setColorIndex(colorIndex);
           } else if (sentiment?.sentiment_class === 'neg') {
             colorIndex = color > 0 ? color - 1 : color;
             setColorIndex(colorIndex);
           }
 
-          if (colorIndex !== -1) {
-            setColorState({ email: cookies.email, color_state: colorIndex })
-              .then(response => {
-                if (response.is_success) {
-                  messageModal.success('Background updated');
-                }
-              })
-              .catch(error => console.error(error));
+          if (colorIndex !== -1 && colorIndex !== prevColor) {
+            setColorState({
+              email: cookies.email,
+              color_state: colorIndex,
+            }).catch(error => console.error(error));
           }
         }
 
