@@ -110,9 +110,9 @@ const Home = ({ message }) => {
         }
 
         if (
-          chatInput.UID[1]?.group !== 'C' ||
-          chatInput.UID[1]?.group !== 'D' ||
-          chatInput.UID[1]?.group !== 'E' ||
+          (chatInput.UID[1]?.group !== 'C' ||
+            chatInput.UID[1]?.group !== 'D' ||
+            chatInput.UID[1]?.group !== 'E') &&
           chatInput?.type === 'SmallTalk'
         ) {
           let colorIndex = -1;
