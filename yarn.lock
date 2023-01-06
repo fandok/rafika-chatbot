@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 4
+  version: 6
   cacheKey: 8
 
 "@ant-design/colors@npm:^6.0.0":
@@ -358,6 +358,7 @@ __metadata:
   version: 11.1.2
   resolution: "@next/swc-darwin-arm64@npm:11.1.2"
   checksum: e87481c2d1436e947f1101d4d3e45bc9486f3dc312d120a6042b4a2333f16150b3881f322103ef52431e09178093775b02d725b843a7dde441f3ee319495ec95
+  conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
@@ -365,6 +366,7 @@ __metadata:
   version: 11.1.2
   resolution: "@next/swc-darwin-x64@npm:11.1.2"
   checksum: 74717c27d2dd8e16ed6221ebc1fd0e212ffe467cc77dcd70f61b5ed9763b64dff36e6b3745791bc01771a2df9b60e609393d8ef848d894464cc15d45641a34f8
+  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
@@ -372,6 +374,7 @@ __metadata:
   version: 11.1.2
   resolution: "@next/swc-linux-x64-gnu@npm:11.1.2"
   checksum: 7cf8cf47cf007f7f1101fddb9850c03297950f84acc25b2b6ae2bce9f8ee860671adebde6c61df3cf721a50ec985304a98ea2ba7a5b594fd22032ae5f5cade02
+  conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
@@ -379,6 +382,7 @@ __metadata:
   version: 11.1.2
   resolution: "@next/swc-win32-x64-msvc@npm:11.1.2"
   checksum: dec45ee30bf9edc8d46a59fa9c1c9fcf00352ab02f5e9ff3cfde3d83cc47aa2be2615ac47142495e63419bd6764a25d2f5a73190d261293dc959fe94de14e9e5
+  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -2121,10 +2125,10 @@ __metadata:
 
 "fsevents@patch:fsevents@~2.3.1#~builtin<compat/fsevents>":
   version: 2.3.2
-  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=1cc4b2"
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
   dependencies:
     node-gyp: latest
-  checksum: 78db9daf1f6526a49cefee3917cc988f62dc7f25b5dd80ad6de4ffc4af7f0cab7491ac737626ff53e482a111bc53aac9e411fe3602458eca36f6a003ecf69c16
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
@@ -2134,6 +2138,7 @@ fsevents@~2.3.1:
   dependencies:
     node-gyp: latest
   checksum: 97ade64e75091afee5265e6956cb72ba34db7819b4c3e94c431d4be2b19b8bb7a2d4116da417950c3425f17c8fe693d25e20212cac583ac1521ad066b77ae31f
+  conditions: os=darwin
   languageName: node
   linkType: hard
 
@@ -2869,13 +2874,13 @@ fsevents@~2.3.1:
   linkType: hard
 
 "json5@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "json5@npm:1.0.1"
+  version: 1.0.2
+  resolution: "json5@npm:1.0.2"
   dependencies:
     minimist: ^1.2.0
   bin:
     json5: lib/cli.js
-  checksum: e76ea23dbb8fc1348c143da628134a98adf4c5a4e8ea2adaa74a80c455fc2cdf0e2e13e6398ef819bfe92306b610ebb2002668ed9fc1af386d593691ef346fc3
+  checksum: 866458a8c58a95a49bef3adba929c625e82532bcff1fe93f01d29cb02cac7c3fe1f4b79951b7792c2da9de0b32871a8401a6e3c5b36778ad852bf5b8a61165d7
   languageName: node
   linkType: hard
 
@@ -4780,11 +4785,11 @@ fsevents@~2.3.1:
 
 "resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.13.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.17.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.18.1#~builtin<compat/resolve>":
   version: 1.18.1
-  resolution: "resolve@patch:resolve@npm%3A1.18.1#~builtin<compat/resolve>::version=1.18.1&hash=00b1ff"
+  resolution: "resolve@patch:resolve@npm%3A1.18.1#~builtin<compat/resolve>::version=1.18.1&hash=07638b"
   dependencies:
     is-core-module: ^2.0.0
     path-parse: ^1.0.6
-  checksum: 3a5051499a570cf94d74353d494cacadbfa489107def201f87e26cabd80d000bd8abccbe247783b86b06d86ce2c646eee5c55900c71cbf1ad2043a67a92b0242
+  checksum: 7439c8f3d8fa00c9dc800ef3c8ed0bd8e8772823e6e4948b1a77487759e0fb905381808caae96398d135619af90654d8e74cac778e5b8c9d7138f2dd52bb2bba
   languageName: node
   linkType: hard
 
